@@ -40,23 +40,31 @@ function App() {
     setEmails(updatedEmails);
   };
 
-  function getFilteredEmails(): Array<Email> {
-    let filteredEmails = emails;
 
-    if (hideRead) {
-      filteredEmails = getReadEmails(filteredEmails);
-    }
 
-    if (currentTab === "starred") {
-      filteredEmails = getStarredEmails(filteredEmails);
-    }
 
-    return filteredEmails;
-  }
+
+
+  let filteredEmails = emails;
+
+  if (hideRead)
+    filteredEmails = getReadEmails(filteredEmails);
+
+
+  if (currentTab === "starred")
+    filteredEmails = getStarredEmails(filteredEmails);
+
+
+  if (search !== '')
+    filteredEmails = filteredEmails.filter(email =>
+      email.title.toLowerCase().includes(search.toLowerCase()))
+
+
+
 
   return (
     <div className="app">
-      <Header setSearch={setSearch}/>
+      <Header setSearch={setSearch} />
       <LeftMenu
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
@@ -66,7 +74,7 @@ function App() {
         setHideRead={setHideRead}
       />
       <Emails
-        getFilteredEmails={getFilteredEmails}
+        filteredEmails={filteredEmails}
         toggleRead={toggleRead}
         toggleStar={toggleStar}
       />

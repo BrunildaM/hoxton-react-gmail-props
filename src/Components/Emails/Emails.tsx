@@ -12,7 +12,7 @@ type Email = {
 
 
 type Props = {
-    getFilteredEmails: () => Array<Email>
+    filteredEmails: Email[]
     toggleRead: (targetEmail: Email) => void
     toggleStar: (targetEmail: Email) => void
 }
@@ -22,7 +22,7 @@ function Emails(props: Props) {
     return (
         <main className="emails">
             <ul>
-                {props.getFilteredEmails().map((email, index) => (
+                {props.filteredEmails.map((email, index) => (
                     <SingleEmail
                         key={index}
                         index={email.id}
